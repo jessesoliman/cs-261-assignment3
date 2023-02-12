@@ -69,17 +69,16 @@ class LinkedList:
 
     def insert_front(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Takes in a value and inserts a node of value 'value' at the front.
         """
         temp = self._head.next
         node_to_add = SLNode(value)
         self._head.next = node_to_add
         node_to_add.next = temp
 
-
     def insert_back(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Takes in a value and inserts a node of value 'value' in the back.
         """
         cur = self._head
         for i in range(self.length()):
@@ -89,7 +88,8 @@ class LinkedList:
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
-        TODO: Write this implementation
+        Takes in an index and value and inserts at index 'index' a node of
+        value 'value'.
         """
         if index < 0 or index > self.length():
             raise SLLException
@@ -103,33 +103,68 @@ class LinkedList:
 
     def remove_at_index(self, index: int) -> None:
         """
-        TODO: Write this implementation
+        Takes in an index and removes the node at that index.
         """
-
+        if index < 0 or index >= self.length():
+            raise SLLException
+        cur = self._head
+        for i in range(index):
+            cur = cur.next
+        node_to_remove = cur.next
+        cur.next = node_to_remove.next
 
     def remove(self, value: object) -> bool:
         """
-        TODO: Write this implementation
+        Takes in a value and removes the first node with value 'value'.
         """
-        pass
+        cur = self._head
+        for i in range(self.length()):
+            cur = cur.next
+            if cur.value == value:
+                self.remove_at_index(i)
+                return True
+        return False
 
     def count(self, value: object) -> int:
         """
-        TODO: Write this implementation
+        Takes in a value and returns the number of nodes of value 'value'.
         """
-        pass
+        counter = 0
+        cur = self._head
+        for i in range(self.length()):
+            cur = cur.next
+            if cur.value == value:
+                counter += 1
+        return counter
 
     def find(self, value: object) -> bool:
         """
-        TODO: Write this implementation
+        Takes in a value and returns true if a node of value 'value' exists.
+        Returns false otherwise.
         """
-        pass
+        cur = self._head
+        for i in range(self.length()):
+            cur = cur.next
+            if cur.value == value:
+                return True
+        return False
 
     def slice(self, start_index: int, size: int) -> "LinkedList":
         """
-        TODO: Write this implementation
+        Takes in a start index and a size. Returns a new linked list consisting
+        of nodes of the subset indicated by the start index.
         """
-        pass
+        if (start_index < 0 or start_index >= self.length() or
+                start_index + size > self.length()):
+            raise SLLException
+        sliced_list = LinkedList()
+        cur = self._head
+        for i in range(start_index):
+            cur = cur.next
+        for i in range(size):
+            cur = cur.next
+            sliced_list.insert_back(cur.value)
+        return sliced_list
 
 
 if __name__ == "__main__":
