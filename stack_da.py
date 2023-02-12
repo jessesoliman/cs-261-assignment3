@@ -1,9 +1,9 @@
-# Name:
-# OSU Email:
+# Name: Jesse Soliman
+# OSU Email: solimaje@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: 3
+# Due Date: 2/13/2023
+# Description: Implement a Stack ADT class using a Dynamic Array data structure.
 
 
 from dynamic_array import *
@@ -52,21 +52,28 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Takes in a value and adds it to the top of the stack.
         """
-        pass
+        self._da.append(value)
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        Removes/returns the top of the stack.
         """
-        pass
+        if self.size() == 0:
+            raise StackException
+        pop_value = self._da[self.size() - 1]
+        self._da.remove_at_index(self.size() - 1)
+        return pop_value
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        Returns the top of the stack.
         """
-        pass
+        if self.size() == 0:
+            raise StackException
+        peek_value = self._da[self.size() - 1]
+        return peek_value
 
 
 # ------------------- BASIC TESTING -----------------------------------------

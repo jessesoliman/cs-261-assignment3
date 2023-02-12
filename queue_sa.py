@@ -1,9 +1,10 @@
-# Name:
-# OSU Email:
+# Name: Jesse Soliman
+# OSU Email: solimaje@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: 3
+# Due Date: 2/13/2023
+# Description: Implement a Queue ADt class that utilizes a circular buffer.
+#              Use a Static Array data structure as the underlying storage.
 
 
 # Note: Changing any part of the pre-implemented methods (besides adding  #
@@ -70,7 +71,9 @@ class Queue:
         """
         TODO: Write this implementation
         """
-        pass
+        if self.size() == self._sa.length():
+            self._double_queue()
+
 
     def dequeue(self) -> object:
         """
@@ -91,7 +94,17 @@ class Queue:
         """
         TODO: Write this implementation
         """
-        pass
+        double_size = StaticArray(self.size() * 2)
+        counter = self.size()
+        new_array_index = 0
+        front_index = self._front
+        while counter > 0:
+            double_size[new_array_index] = \
+                self._da[front_index]
+            self._increment(front_index)
+            counter -= 1
+            new_array_index += 1
+        self._sa = double_size
 
 
 # ------------------- BASIC TESTING -----------------------------------------
