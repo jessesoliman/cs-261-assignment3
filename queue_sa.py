@@ -69,30 +69,40 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Takes in a value 'value' and adds it to the end of the queue.
         """
         if self.size() == self._sa.length():
             self._double_queue()
-
+        self._back = self._increment(self._back)
+        self._sa[self._back] = value
+        self._current_size += 1
 
     def dequeue(self) -> object:
         """
-        TODO: Write this implementation
+        Dequeues the object at index 'self._front' and increments the pointer.
         """
-        pass
+        if self._current_size == 0:
+            raise QueueException
+        dequeued_object = self._sa[self._front]
+        self._front = self._increment(self._front)
+        self._current_size -= 1
+        return dequeued_object
 
     def front(self) -> object:
         """
-        TODO: Write this implementation
+        Returns the value at the beginning of the queue.
         """
-        pass
+        if self.is_empty() is True:
+            raise QueueException
+        return self._sa[self._front]
 
     # The method below is optional, but recommended, to implement. #
     # You may alter it in any way you see fit.                     #
 
     def _double_queue(self) -> None:
         """
-        TODO: Write this implementation
+        When the underlying static array is too small, doubles the
+        capacity and sets self._sa = to the new static array.
         """
         double_size = StaticArray(self.size() * 2)
         counter = self.size()
@@ -100,11 +110,13 @@ class Queue:
         front_index = self._front
         while counter > 0:
             double_size[new_array_index] = \
-                self._da[front_index]
-            self._increment(front_index)
+                self._sa[front_index]
+            front_index = self._increment(front_index)
             counter -= 1
             new_array_index += 1
         self._sa = double_size
+        self._front = 0
+        self._back = self.size() - 1
 
 
 # ------------------- BASIC TESTING -----------------------------------------

@@ -1,9 +1,10 @@
-# Name:
-# OSU Email:
+# Name: Jesse Soliman
+# OSU Email: solimaje@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: 3
+# Due Date: 2/13/2023
+# Description: Implement a Stack ADT class using a chain of Singly-Linked
+#              -Nodes as the underlying storage for the Stack ADT.
 
 
 from SLNode import SLNode
@@ -63,21 +64,33 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Add node of value 'value' on top of stack (head of list).
         """
-        pass
+        if self._head is not None:
+            old_head = self._head
+            self._head = SLNode(value)
+            self._head.next = old_head
+        else:
+            self._head = SLNode(value)
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        Returns value of node at top of stack (head of list) and
+        sets the top of stack to the next node.
         """
-        pass
+        if self.is_empty() is True:
+            raise StackException
+        popped_node = self._head
+        self._head = self._head.next
+        return popped_node.value
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        Returns the value at the top of the stack without popping.
         """
-        pass
+        if self.is_empty() is True:
+            raise StackException
+        return self._head.value
 
 # ------------------- BASIC TESTING -----------------------------------------
 

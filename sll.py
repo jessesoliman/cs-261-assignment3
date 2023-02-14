@@ -155,7 +155,7 @@ class LinkedList:
         of nodes of the subset indicated by the start index.
         """
         if (start_index < 0 or start_index >= self.length() or
-                start_index + size > self.length()):
+                start_index + size > self.length() or size < 0):
             raise SLLException
         sliced_list = LinkedList()
         cur = self._head

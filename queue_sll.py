@@ -1,9 +1,10 @@
-# Name:
-# OSU Email:
+# Name: Jesse Soliman
+# OSU Email: solimaje@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: 3
+# Due Date: 2/13/2023
+# Description: Implement a Queue ADT class using a chain of Singly-Linked
+#              Nodes as the underlying storage.
 
 
 from SLNode import SLNode
@@ -64,21 +65,37 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Add a node of value 'value' to the end of the queue (self._tail).
         """
-        pass
+        if self._head is not None:
+            cur = self._head
+            for i in range(self.size()-1):
+                cur = cur.next
+            previous_last = self._tail
+            self._tail = SLNode(value)
+            previous_last.next = self._tail
+        else:
+            self._head = SLNode(value)
+            self._tail = self._head
 
     def dequeue(self) -> object:
         """
-        TODO: Write this implementation
+        Remove the node at the front of the queue(self._head) and return
+        its value.
         """
-        pass
+        if self.is_empty() is True:
+            raise QueueException
+        dequeued_node = self._head.value
+        self._head = self._head.next
+        return dequeued_node
 
     def front(self) -> object:
         """
-        TODO: Write this implementation
+        Return the value at the front of the queue(self._head.value).
         """
-        pass
+        if self.is_empty() is True:
+            raise QueueException
+        return self._head.value
 
 
 # ------------------- BASIC TESTING -----------------------------------------
